@@ -31,7 +31,7 @@ const memberSchema = mongoose.Schema({
   },
 });
 
-const mentor = mongoose.Schema({
+const mentorSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -49,6 +49,7 @@ const mentor = mongoose.Schema({
 });
 
 const member = mongoose.model("member", memberSchema);
+const mentor = mongoose.model("mentor", mentorSchema);
 
 app.route("/").get((req, res) => {
   res.json({ message: "Welcome To Phoenix 👩‍💻" });
@@ -72,6 +73,42 @@ app
         email: req.body.email,
       });
       mem.save((err, resu) => {
+        if (!err) {
+          res.json(resu);
+        } else {
+          res.json({ message: "Phone Or Email Already in use !" });
+        }
+      });
+    } else {
+      res.json({ message: "Some Error Occured Please Try Again" });
+    }
+  });
+
+app
+  .route("/mentors")
+  .get((req, res) => {
+    mentor.find((err, men) => {
+      if (!err) {
+        res.json(men);
+      } else {
+        res.json({ error: err });
+      }
+    });
+  })
+  .post((req, res) => {
+    if (
+      !(
+        req.body.name == null ||
+        req.body.phone == null ||
+        req.body.email == null
+      )
+    ) {
+      const ment = new mentor({
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email,
+      });
+      ment.save((err, resu) => {
         if (!err) {
           res.json(resu);
         } else {
