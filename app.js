@@ -1,11 +1,13 @@
+require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
+const { member, mentor, project } = require("./models/model");
 const app = express();
 app.use(bodyparser.urlencoded({ extended: true }));
 
 mongoose.connect(
-  "mongodb://localhost:27017/phoenix",
+  process.env.DBURL,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
     if (!err) {
@@ -13,55 +15,6 @@ mongoose.connect(
     }
   }
 );
-
-const memberSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-});
-
-const mentorSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-});
-
-const projectSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-});
-
-const member = mongoose.model("member", memberSchema);
-const mentor = mongoose.model("mentor", mentorSchema);
-const project = mongoose.model("project", projectSchema);
 
 app.route("/").get((req, res) => {
   res.json({ message: "Welcome To Phoenix 👩‍💻" });
