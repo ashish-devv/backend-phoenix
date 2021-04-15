@@ -13,6 +13,8 @@ This Repo Is Responsible For Backend of Phoenix Club Website.
 - Add Image upload on /members,/mentors,/project
 - More to Come .
 
+### Create .ENV File to Use It in Your local Machine.
+
 ## Contributors
 
 <hr/>
