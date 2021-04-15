@@ -48,8 +48,20 @@ const mentorSchema = mongoose.Schema({
   },
 });
 
+const projectSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+});
+
 const member = mongoose.model("member", memberSchema);
 const mentor = mongoose.model("mentor", mentorSchema);
+const project = mongoose.model("project", projectSchema);
 
 app.route("/").get((req, res) => {
   res.json({ message: "Welcome To Phoenix 👩‍💻" });
@@ -120,7 +132,36 @@ app
     }
   });
 
-const port = process.port || 3000;
+app
+  .route("/projects")
+  .get((req, res) => {
+    project.find((err, proj) => {
+      if (!err) {
+        res.json(proj);
+      } else {
+        res.json(err);
+      }
+    });
+  })
+  .post((req, res) => {
+    if (!(req.body.name == null || req.body.description == null)) {
+      const proj = new project({
+        name: req.body.name,
+        description: req.body.description,
+      });
+      proj.save((err, resp) => {
+        if (!err) {
+          res.json(resp);
+        } else {
+          res.json({ message: "Some Error Occured Please Try Again" });
+        }
+      });
+    } else {
+      res.json({ message: "Some Error Occured Please Try Again" });
+    }
+  });
+
+const port = process.env.port || 3000;
 
 app.listen(port, () => {
   console.log(`server started at : ${port}`);
