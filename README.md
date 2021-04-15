@@ -1,4 +1,5 @@
-# Phoenix Club - Backend 
+# Phoenix Club - Backend
+
 ## _Made In Node(ExpressJS),MongoDB_
 
 [![N|Solid](https://img.shields.io/badge/Maintained%20By-Ashish-brightgreen)](https://img.shields.io/badge/Maintained%20By-Ashish-brightgreen)
@@ -7,12 +8,11 @@
 
 This Repo Is Responsible For Backend of Phoenix Club Website.
 📑 Remaining Task To be Done (#Remove Bullets If Done)
+
 - Authentication
 - Add Image upload on /members,/mentors,/project
 - More to Come .
+
 ## Contributors
 
 <hr/>
-
-
-
