@@ -6,6 +6,8 @@ const { member, mentor, project } = require("./models/model");
 const app = express();
 app.use(bodyparser.urlencoded({ extended: true }));
 
+app.use(express.static("public"));
+app.set("view engine", "ejs");
 mongoose.connect(
   process.env.DBURL,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -17,7 +19,11 @@ mongoose.connect(
 );
 
 app.route("/").get((req, res) => {
-  res.json({ message: "Welcome To Phoenix 👩‍💻" });
+  res.render("index");
+});
+
+app.route("/signin").get((req, res) => {
+  res.render("signin");
 });
 
 app
